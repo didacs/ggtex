@@ -21,7 +21,7 @@ load_metadata <- function(
 
 #' Generates a boxplot with the distribution of the values across the GTEx tissues
 #' 
-#' @param df data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.
+#' @param values data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.
 #' @param metadata object obtained by load_metadata()
 #' @param log10_scale if TRUE (default), values are transfomed by log10
 #' @param outlier.size size of outlier points in the boxplot
