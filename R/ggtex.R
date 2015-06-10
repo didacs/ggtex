@@ -38,6 +38,7 @@ ggtex_boxplot_tissues <- function(
   ) {
   # load values
   values <- read.table( df, header=T)
+  names(values) <- gsub("\\.","-", names(values))
   df <- melt(t(values))
   names(df) <- c('SAMPID','feature','value')
   df <- merge(df,metadata, by='SAMPID')
