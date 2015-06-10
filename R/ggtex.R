@@ -37,7 +37,6 @@ ggtex_boxplot_tissues <- function(
   outlier.size = 1
   ) {
   # load values
-  values <- read.table( values, header=T)
   names(values) <- gsub("\\.","-", names(values))
   df <- melt(t(values))
   names(df) <- c('SAMPID','feature','value')
