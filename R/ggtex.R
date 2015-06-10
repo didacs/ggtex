@@ -31,13 +31,13 @@ load_metadata <- function(
 
 
 ggtex_boxplot_tissues <- function(
-  df,
+  values,
   metadata,
   log10_scale = T,
   outlier.size = 1
   ) {
   # load values
-  values <- read.table( df, header=T)
+  values <- read.table( values, header=T)
   names(values) <- gsub("\\.","-", names(values))
   df <- melt(t(values))
   names(df) <- c('SAMPID','feature','value')
