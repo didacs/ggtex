@@ -4,6 +4,7 @@
 #' @param SubjectSampleMapping path to SubjectSampleMapping file.
 #' @param SampleAttributes path to SampleAttributes file.
 #' @return data.frame with merged metadata
+#' @export
 
 load_metadata <- function(
   SubjectPhenotypes,
