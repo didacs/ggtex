@@ -18,3 +18,45 @@ load_metadata <- function(
   metadata <- merge(metadata,SampleAttributes, by='SAMPID')
   metadata
 }
+
+#' Generates a boxplot with the distribution of the values across the GTEx tissues
+#' 
+#' @param df data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.
+#' @param metadata object obtained by load_metadata()
+#' @param log10_scale if TRUE (default), values are transfomed by log10
+#' @param outlier.size size of outlier points in the boxplot
+#' @return ggplot object
+#' @export
+#' @seealso \code{\link{load_metadata}}
+
+
+ggtex_boxplot_tissues <- function(
+  df,
+  metadata,
+  log10_scale = T,
+  outlier.size = 1
+  ) {
+  # load values
+  values <- read.table( df, header=T)
+  df <- melt(t(values))
+  names(df) <- c('SAMPID','feature','value')
+  df <- merge(df,metadata, by='SAMPID')
+  
+  # plot
+  
+  if (log10_scale) {
+    p <- ggplot(df, aes(SMTSD, log10(value), fill=SMTS))
+  } else { 
+    p <- ggplot(df, aes(SMTSD, value, fill=SMTS))
+  }
+  
+  p + geom_boxplot( outlier.size = outlier.size) +
+    facet_grid(feature~SMTS, space="free", scales="free") +
+    theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
+          strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
+          strip.text.y = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5)) +
+    scale_fill_discrete(name="Tissue")
+  
+  p
+}
+  
