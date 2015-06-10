@@ -1,0 +1,9 @@
+Package: ggtex
+Type: Package
+Title: Set of tools to visualize GTEx data
+Version: 1.0
+Date: 2015-06-10
+Author: Didac Santesmasses
+Maintainer: <didac.santesmasses@crg.cat>
+Description: Set of tools to visualize GTEx data
+License: What license is it under?
