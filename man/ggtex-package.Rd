@@ -3,38 +3,33 @@
 \alias{ggtex}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+ggtex
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+Set of tools for visualization of GTEx data
 }
 \details{
 \tabular{ll}{
 Package: \tab ggtex\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 0.0\cr
 Date: \tab 2015-06-10\cr
-License: \tab What license is it under?\cr
+License: \tab GPL-2|GPL-3\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
+The ggtex package provides with the following functions:
+
+load_metadata() loads the GTEx metadata given the correspondig path to the files
+ggtex_boxplot_tissues() give a matrix of values, plot the distribution across tissues
 }
 \author{
-Who wrote it
+Didac Santesmasses
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: <didac.santesmasses@crg.cat>
 }
 \references{
-~~ Literature or other references for background information ~~
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-~~ simple examples of the most important functions ~~
 }

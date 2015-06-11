@@ -10,4 +10,4 @@ Depends:
     reshape2 (>= 1.4),
     ggplot2 (>= 1.0.0)
 Description: Set of tools for visualization of GTEx data
-License: What license is it under?
+License: GPL-2|GPL-3

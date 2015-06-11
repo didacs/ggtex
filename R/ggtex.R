@@ -45,9 +45,9 @@ ggtex_boxplot_tissues <- function(
   # plot
   
   if (log10_scale) {
-    p <- ggplot(df, aes(SMTSD, log10(value), fill=SMTS))
+    p <- ggplot(df, aes_string('SMTSD', 'log10(value)', fill='SMTS'))
   } else { 
-    p <- ggplot(df, aes(SMTSD, value, fill=SMTS))
+    p <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
   }
   
   p + geom_boxplot( outlier.size = outlier.size) +
