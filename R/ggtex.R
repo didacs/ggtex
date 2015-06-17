@@ -40,28 +40,28 @@ ggtex_boxplot_tissues <- function(
   log10_scale = T,
   outlier.size = 1
   ) {
-  if (values){
-    
-  }
-  # check if gene.rpkm was set
-  else if (gene.rpkm){
-    if (!gene_ids){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
-      stop("gene_ids was not specified. If you provide the gene.rpkm, a list of genes must be specified using the parameter gene_ids",
-           call. = FALSE)
+  
+  if (!values) {
+    # check if gene.rpkm was set
+    if (gene.rpkm){
+      if (!gene_ids){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
+        stop("gene_ids was not specified. If you provide the gene.rpkm, a list of genes must be specified using the parameter gene_ids",
+             call. = FALSE)
+      }
+      # add a column with the ENSG without the suffix (e.g. ENSG00000223972.4 become ENSG00000223972)
+      names_short <- as.character(lapply(strsplit(as.character(gene.rpkm$Name), split="\\."), "[",1))
+      # do the same operation with the gene_ids list
+      gene_ids_short <- as.character(lapply(strsplit(as.character(gene_ids), split="\\."), "[",1))
+      # generate the subset of the genes
+      genes <- names_short %in% gene_ids_short
+      # check if genes      
+      if (length(genes)==0) stop("None of the gene_ids was found in gene.rpkm$Name. Please, check if they have any genes in common")
+      # get their values excluding the first two columns (Name and Description)
+      values <- gene.rpkm[genes,-c(1,2)]
+      # and include the Description as rownames. It will be displayed in the plot
+      rownames(values) <- gene.rpkm[genes,]$Description
     }
-    # add a column with the ENSG without the suffix (e.g. ENSG00000223972.4 become ENSG00000223972)
-    names_short <- as.character(lapply(strsplit(as.character(gene.rpkm$Name), split="\\."), "[",1))
-    # do the same operation with the gene_ids list
-    gene_ids_short <- as.character(lapply(strsplit(as.character(gene_ids), split="\\."), "[",1))
-    # generate the subset of the genes
-    genes <- names_short %in% gene_ids_short
-    if (length(genes)==0) stop("None of the gene_ids was found in gene.rpkm$Name. Please, check if they have genes in common")
-    # get their values excluding the first two columns (Name and Description)
-    values <- gene.rpkm[genes,-c(1,2)]
-    # and include the Description as rownames. It will be displayed in the plot
-    rownames(values) <- gene.rpkm[genes,]$Description
   }
-
   # load values
   names(values) <- gsub("\\.","-", names(values))
   df <- melt(t(values))
