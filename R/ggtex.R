@@ -54,7 +54,7 @@ ggtex_boxplot_tissues <- function(
       gene_ids_short <- as.character(lapply(strsplit(as.character(gene_ids), split="\\."), "[",1))
       # generate the subset of the genes
       genes <- names_short %in% gene_ids_short
-      # check if genes      
+      # check if genes is not empty  
       if (length(genes)==0) stop("None of the gene_ids was found in gene.rpkm$Name. Please, check if they have any genes in common")
       # get their values excluding the first two columns (Name and Description)
       values <- gene.rpkm[genes,-c(1,2)]
