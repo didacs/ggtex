@@ -44,8 +44,8 @@ ggtex_boxplot_tissues <- function(
   if (!values) {
     # check if gene.rpkm was set
     if (class(gene.rpkm)=="data.frame"){
-      if (!gene_ids){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
-        stop("gene_ids was not specified. If you provide the gene.rpkm, a list of genes must be specified using the parameter gene_ids",
+      if (gene_ids==F){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
+        stop("gene_ids was not specified. Since you provided the gene.rpkm, a list of genes must be specified with the parameter gene_ids",
              call. = FALSE)
       }
       # add a column with the ENSG without the suffix (e.g. ENSG00000223972.4 become ENSG00000223972)
