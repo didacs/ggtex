@@ -35,15 +35,15 @@ load_metadata <- function(
 ggtex_boxplot_tissues <- function(
   values=F,
   metadata,
-  gene.rpkm,
-  gene_ids,
+  gene.rpkm=F,
+  gene_ids=F,
   log10_scale = T,
   outlier.size = 1
   ) {
   
   if (!values) {
     # check if gene.rpkm was set
-    if (gene.rpkm){
+    if (class(gene.rpkm)=="data.frame"){
       if (!gene_ids){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
         stop("gene_ids was not specified. If you provide the gene.rpkm, a list of genes must be specified using the parameter gene_ids",
              call. = FALSE)

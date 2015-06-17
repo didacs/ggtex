@@ -3,7 +3,7 @@
 \alias{ggtex_boxplot_tissues}
 \title{Generates a boxplot with the distribution of the values across the GTEx tissues}
 \usage{
-ggtex_boxplot_tissues(values = F, metadata, gene.rpkm, gene_ids,
+ggtex_boxplot_tissues(values = F, metadata, gene.rpkm = F, gene_ids = F,
   log10_scale = T, outlier.size = 1)
 }
 \arguments{
