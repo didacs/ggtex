@@ -3,8 +3,8 @@
 \alias{ggtex_boxplot_tissues}
 \title{Generates a boxplot with the distribution of the values across the GTEx tissues}
 \usage{
-ggtex_boxplot_tissues(values, metadata, gene.rpkm, gene_ids, log10_scale = T,
-  outlier.size = 1)
+ggtex_boxplot_tissues(values = F, metadata, gene.rpkm, gene_ids,
+  log10_scale = T, outlier.size = 1)
 }
 \arguments{
 \item{values}{data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.}

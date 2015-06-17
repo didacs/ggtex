@@ -33,7 +33,7 @@ load_metadata <- function(
 
 
 ggtex_boxplot_tissues <- function(
-  values,
+  values=F,
   metadata,
   gene.rpkm,
   gene_ids,
