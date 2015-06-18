@@ -119,7 +119,7 @@ ggtex_boxplot_tissues <- function(
 #   }
   p <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
   p <- p + geom_boxplot( outlier.size = outlier.size) +
-    facet_grid(feature~SMTS, space="free", scales="free") +
+    facet_grid(feature~SMTS, space="free_x", scales="free") +
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
           strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
           strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
