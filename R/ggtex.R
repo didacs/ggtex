@@ -27,7 +27,6 @@ load_metadata <- function(
 #' @param transcript.rpkm transcript.rpkm object; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/transcript_rpkm.RData')
 #' @param gene_ids list of genes
 #' @param transcript_ids list of genes
-# @param log10_scale if TRUE (default), values are transfomed by log10
 #' @param outlier.size size of outlier points in the boxplot
 #' @return ggplot object
 #' @export
@@ -112,11 +111,6 @@ ggtex_boxplot_tissues <- function(
   df <- merge(df,metadata, by='SAMPID')
   
   # plot
-#   if (log10_scale) {
-#     p <- ggplot(df, aes_string('SMTSD', 'log10(value)', fill='SMTS'))
-#   } else { 
-#     p <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
-#   }
   p <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
   p <- p + geom_boxplot( outlier.size = outlier.size) +
     facet_grid(feature~SMTS, space="free_x", scales="free") +
