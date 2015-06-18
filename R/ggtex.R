@@ -100,7 +100,9 @@ ggtex_boxplot_tissues <- function(
       features <- object_ids_short %in% input_ids_short
       # check if genes is not empty  
       if (length(features)==0) stop("None of the ids in input was found in the values object. Please, check if they have any id in common")
-    
+      values <- transcript.rpkm[features,-c(1:4)]
+      # and include the Description as rownames. It will be displayed in the plot
+      rownames(values) <- transcript.rpkm[features,column]
     }
   }
   # load values
