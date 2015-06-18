@@ -102,7 +102,7 @@ ggtex_boxplot_tissues <- function(
       if (length(features)==0) stop("None of the ids in input was found in the values object. Please, check if they have any id in common")
       values <- transcript.rpkm[features,-c(1:4)]
       # and include the Description as rownames. It will be displayed in the plot
-      rownames(values) <- transcript.rpkm[features,column]
+      rownames(values) <- transcript.rpkm[features,'TargetID']
     }
   }
   # load values
