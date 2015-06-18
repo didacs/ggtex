@@ -3,19 +3,22 @@
 \alias{ggtex_boxplot_tissues}
 \title{Generates a boxplot with the distribution of the values across the GTEx tissues}
 \usage{
-ggtex_boxplot_tissues(values = F, metadata, gene.rpkm = F, gene_ids = F,
-  log10_scale = T, outlier.size = 1)
+ggtex_boxplot_tissues(values = F, metadata, gene.rpkm = F,
+  transcript.rpkm = F, gene_ids = F, transcript_ids = F,
+  outlier.size = 1)
 }
 \arguments{
 \item{values}{data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.}
 
 \item{metadata}{object returned by load_metadata()}
 
-\item{gene.rpkm}{path to object gene.rpkm; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/gene_rpkm.RData')}
+\item{gene.rpkm}{gene.rpkm object; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/gene_rpkm.RData')}
+
+\item{transcript.rpkm}{transcript.rpkm object; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/gene_rpkm.RData')}
 
 \item{gene_ids}{list of genes}
 
-\item{log10_scale}{if TRUE (default), values are transfomed by log10}
+\item{transcript_ids}{list of genes}
 
 \item{outlier.size}{size of outlier points in the boxplot}
 }
