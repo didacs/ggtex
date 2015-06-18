@@ -49,7 +49,7 @@ ggtex_boxplot_tissues <- function(
     # values is going to be obtained from the loaded object
     
     # check input parameters
-    if ((gene.rpkm==F) & (transcript.rpkm==F)){
+    if ((class(gene.rpkm)!="data.frame") & (class(transcript.rpkm)!="data.frame")){
       stop("no values were provided, please, use values, gene.rpkm or transcript_ids.")
     }
     if ((class(gene.rpkm)=="data.frame") & (class(transcript.rpkm)=="data.frame")){
