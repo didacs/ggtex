@@ -14,7 +14,7 @@ ggtex_boxplot_tissues(values = F, metadata, gene.rpkm = F,
 
 \item{gene.rpkm}{gene.rpkm object; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/gene_rpkm.RData')}
 
-\item{transcript.rpkm}{transcript.rpkm object; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/gene_rpkm.RData')}
+\item{transcript.rpkm}{transcript.rpkm object; load('/users/rg/freverter/GTExAnalysis/gtex_gc19_2015_01_12/rna_seq/transcript_rpkm.RData')}
 
 \item{gene_ids}{list of genes}
 
