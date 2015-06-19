@@ -44,7 +44,7 @@ ggtex_boxplot_tissues <- function(
   outlier.size = 1
   ) {
   
-  if (!values) {
+  if (class(values)!="data.frame") {
     # values is going to be obtained from the loaded object
     
     # check input parameters
