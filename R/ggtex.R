@@ -114,7 +114,6 @@ ggtex_boxplot_tissues <- function(
   names(df) <- c('SAMPID','feature','value')
   df <- merge(df, metadata, by='SAMPID')
   
-  print(class(transcript.rpkm))
   if (class(transcript.rpkm)=="data.frame") {
     rows <- transcript.rpkm$TargetID %in% df$feature
     df$Gene_Symbol <- transcript.rpkm[rows, 'Gene_Symbol']
