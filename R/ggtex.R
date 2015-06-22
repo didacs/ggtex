@@ -88,7 +88,7 @@ ggtex_boxplot_tissues <- function(
       if (class(gene_ids)!="logical"){
         column <- 'Gene_Symbol'
         ids_list <- gene_ids
-      } else if (transcript_ids!=F){ 
+      } else if (class(transcript_ids)!="logical"){ 
         column = 'TargetID'
         ids_list <- transcript_ids
       }
@@ -117,7 +117,7 @@ ggtex_boxplot_tissues <- function(
   
   if (class(transcript.rpkm)=="data.frame") {
     rows <- match( df$feature, transcript.rpkm$TargetID )
-    df$Gene_Symbol <- transcript.rpkm[rows, 'Gene_Symbol']
+    df$Gene_Symbol <- factor( transcript.rpkm[rows, 'Gene_Symbol'] )
     fill <- 'Gene_Symbol'
     name <- 'Gene'
   }
@@ -125,7 +125,7 @@ ggtex_boxplot_tissues <- function(
   # plot
   p <- ggplot(df, aes_string('SMTSD', 'value', fill=fill))
   p <- p + geom_boxplot( outlier.size = outlier.size) +
-    facet_grid(feature~SMTS, space="free_x", scales="free") +
+    facet_grid(reorder(feature,Gene_symbol)~SMTS, space="free_x", scales="free") +
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
           strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
           strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
