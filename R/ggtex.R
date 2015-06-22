@@ -63,7 +63,7 @@ ggtex_boxplot_tissues <- function(
     
     # gene.rpkm as input
     if (class(gene.rpkm)=="data.frame"){
-      if (gene_ids==F){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
+      if (class(gene_ids)=="logical"){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
         stop("gene_ids was not specified. Since you provided the gene.rpkm, a list of genes must be specified with the parameter gene_ids.")
       }
       # ENSG without the suffix (e.g. ENSG00000223972.4 become ENSG00000223972)
@@ -84,15 +84,15 @@ ggtex_boxplot_tissues <- function(
     else if (class(transcript.rpkm)=="data.frame"){
       column = F
       ids_list = F
-      if (gene_ids!=F){
+      if (class(gene_ids)!="logical"){
         column <- 'Gene_Symbol'
         ids_list <- gene_ids
       } else if (transcript_ids!=F){ 
         column = 'TargetID'
         ids_list <- transcript_ids
       }
-      if (column==F) stop("no genes or transcripts list, please, use gene_ids or transcript_ids")
-      if (ids_list==F) stop("no genes or transcripts list, please, use gene_ids or transcript_ids")
+      if (class(column)=="logical") stop("no genes or transcripts list, please, use gene_ids or transcript_ids")
+      if (class(ids_list)=="logical") stop("no genes or transcripts list, please, use gene_ids or transcript_ids")
       
       # ids without the suffix (e.g. ENSG00000223972.4 become ENSG00000223972)
       object_ids_short <- as.character(lapply(strsplit(as.character(transcript.rpkm[,column]), split="\\."), "[",1))
