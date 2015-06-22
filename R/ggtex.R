@@ -44,8 +44,9 @@ ggtex_boxplot_tissues <- function(
   outlier.size = 1
   ) {
   
-  # fill is mapped to tissue by default
+  # values by default, they will be redefined if transcript.rpkm is in input
   fill='SMTS'
+  name="Tissue"
   
   if (class(values)!="data.frame") {
     # values is going to be obtained from the loaded object
@@ -115,9 +116,10 @@ ggtex_boxplot_tissues <- function(
   df <- merge(df, metadata, by='SAMPID')
   
   if (class(transcript.rpkm)=="data.frame") {
-    rows <- transcript.rpkm$TargetID %in% df$feature
+    rows <- match( df$feature, transcript.rpkm$TargetID )
     df$Gene_Symbol <- transcript.rpkm[rows, 'Gene_Symbol']
     fill <- 'Gene_Symbol'
+    name <- 'Gene'
   }
   
   # plot
@@ -127,7 +129,7 @@ ggtex_boxplot_tissues <- function(
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
           strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
           strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
-    scale_fill_discrete(name="Tissue")
+    scale_fill_discrete(name=name)
   
   p
 }
