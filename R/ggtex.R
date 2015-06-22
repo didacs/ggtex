@@ -44,6 +44,9 @@ ggtex_boxplot_tissues <- function(
   outlier.size = 1
   ) {
   
+  # fill is mapped to tissue by default
+  fill='SMTS'
+  
   if (class(values)!="data.frame") {
     # values is going to be obtained from the loaded object
     
@@ -54,7 +57,7 @@ ggtex_boxplot_tissues <- function(
     if ((class(gene.rpkm)=="data.frame") & (class(transcript.rpkm)=="data.frame")){
       stop("gene.rpkm or transcript.rpkm, but not both please.")
     }
-    if ((gene_ids==F) & (transcript_ids==F)) {
+    if ((class(gene_ids)=="logical") & (class(transcript_ids)=="logical")) {
       stop("no genes or transcripts list, please, use gene_ids or transcript_ids")
     }
     
@@ -102,16 +105,23 @@ ggtex_boxplot_tissues <- function(
       values <- transcript.rpkm[features,-c(1:4)]
       # and include the Description as rownames. It will be displayed in the plot
       rownames(values) <- transcript.rpkm[features,'TargetID']
+      
     }
   }
   # load values
   names(values) <- gsub("\\.","-", names(values))
   df <- melt(t(values))
   names(df) <- c('SAMPID','feature','value')
-  df <- merge(df,metadata, by='SAMPID')
+  df <- merge(df, metadata, by='SAMPID')
+  
+  if (class(transcript.rpkm)=="data.frame") {
+    rows <- transcript.rpkm$TargetID %in% df$feature
+    df$Gene_Symbol <- transcript.rpkm[rows, 'Gene_Symbol']
+    fill <- 'Gene_Symbol'
+  }
   
   # plot
-  p <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
+  p <- ggplot(df, aes_string('SMTSD', 'value', fill=fill))
   p <- p + geom_boxplot( outlier.size = outlier.size) +
     facet_grid(feature~SMTS, space="free_x", scales="free") +
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
