@@ -109,8 +109,10 @@ ggtex_boxplot_tissues <- function(
       
     }
   }
-  # load values
+  # transform values
+  # replace "." by "-" in colnames
   names(values) <- gsub("\\.","-", names(values))
+  # data.frame of values in long format
   df <- melt(t(values))
   names(df) <- c('SAMPID','feature','value')
   df <- merge(df, metadata, by='SAMPID')
