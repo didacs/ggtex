@@ -170,14 +170,14 @@ boxplot_features <- function(
           strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
     scale_fill_discrete(name=name)
   
-  j <- read.table(junctions, header=T)
+#  j <- read.table(junctions, header=T)
   j <- within(j, {
     chr <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",1))
     start <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",2))
     end <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",3))
     midpoint <- start + (end - start) / 2
   })
-  e <- read.table(exons, header=F, col.names = c('ID','chr','start','end','strand'))
+ # e <- read.table(exons, header=F, col.names = c('ID','chr','start','end','strand'))
   
   p2 <- ggplot()
   p2 <- p2 + geom_linerange(data=e[-1,], aes(x=0, ymin=start, ymax=end), size=10, color = "grey50")
