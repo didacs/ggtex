@@ -162,7 +162,7 @@ boxplot_features <- function(
   names(df) <- c('SAMPID','feature','value')
   df <- merge(df, metadata, by='SAMPID')
   
-  p1 <- ggplot(df, aes_string('SMTSD', 'value', fill=fill))
+  p1 <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
   p1 <- p + geom_boxplot( outlier.size = outlier.size) +
     facet_grid(feature~SMTS, space="free_x", scales="free") +
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
