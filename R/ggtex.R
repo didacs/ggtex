@@ -136,4 +136,58 @@ ggtex_boxplot_tissues <- function(
   
   p
 }
+
+
+#' Generates a boxplot with the distribution of the values across the GTEx tissues, including description of features
+#' 
+#' @param values data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.
+#' @param metadata object returned by load_metadata()
+#' @param exons exons
+#' @param junctions junctions
+#' @export
+#' @seealso \code{\link{load_metadata}}
+
+
+boxplot_features <- function(
+  values,
+  metadata,
+  exons,
+  junctions){
   
+  # transform values
+  # replace "." by "-" in colnames
+  names(values) <- gsub("\\.","-", names(values))
+  # data.frame of values in long format
+  df <- melt(t(values))
+  names(df) <- c('SAMPID','feature','value')
+  df <- merge(df, metadata, by='SAMPID')
+  
+  p1 <- ggplot(df, aes_string('SMTSD', 'value', fill=fill))
+  p1 <- p + geom_boxplot( outlier.size = outlier.size) +
+    facet_grid(feature~SMTS, space="free_x", scales="free") +
+    theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
+          strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
+          strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
+    scale_fill_discrete(name=name)
+  
+  j <- read.table(junctions, header=T)
+  j <- within(j, {
+    chr <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",1))
+    start <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",2))
+    end <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",3))
+    midpoint <- start + (end - start) / 2
+  })
+  e <- read.table(exons, header=F, col.names = c('ID','chr','start','end','strand'))
+  
+  p2 <- ggplot()
+  p2 <- p2 + geom_linerange(data=e[-1,], aes(x=0, ymin=start, ymax=end), size=10, color = "grey50")
+  p2 <- p2 + geom_segment(data=transform(j, TargetID=NULL), aes(x=0, xend=1, y=start, yend=midpoint), size=.5)
+  p2 <- p2 + geom_segment(data=transform(j, TargetID=NULL), aes(x=1, xend=0, y=midpoint, yend=end), size=.5)
+  p2 <- p2 + geom_segment(data=j, aes(x=0, xend=1, y=start, yend=midpoint), size=1.5, color = "red")
+  p2 <- p2 + geom_segment(data=j, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
+  p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.)
+  
+  grid.arrange(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
+  
+  
+}
