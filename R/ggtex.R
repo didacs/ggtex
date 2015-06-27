@@ -171,20 +171,20 @@ boxplot_features <- function(
     scale_fill_discrete(name='Tissues')
   
 #  j <- read.table(junctions, header=T)
-  j <- within(j, {
-    chr <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",1))
-    start <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",2))
-    end <- as.numeric(lapply(strsplit(as.character(j$TargetID), split = '_'),"[",3))
+  junctions <- within(junctions, {
+    chr <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",1))
+    start <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",2))
+    end <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",3))
     midpoint <- start + (end - start) / 2
   })
  # e <- read.table(exons, header=F, col.names = c('ID','chr','start','end','strand'))
   
   p2 <- ggplot()
-  p2 <- p2 + geom_linerange(data=e[-1,], aes(x=0, ymin=start, ymax=end), size=10, color = "grey50")
-  p2 <- p2 + geom_segment(data=transform(j, TargetID=NULL), aes(x=0, xend=1, y=start, yend=midpoint), size=.5)
-  p2 <- p2 + geom_segment(data=transform(j, TargetID=NULL), aes(x=1, xend=0, y=midpoint, yend=end), size=.5)
-  p2 <- p2 + geom_segment(data=j, aes(x=0, xend=1, y=start, yend=midpoint), size=1.5, color = "red")
-  p2 <- p2 + geom_segment(data=j, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
+  p2 <- p2 + geom_linerange(data=exons[-1,], aes(x=0, ymin=start, ymax=end), size=10, color = "grey50")
+  p2 <- p2 + geom_segment(data=transform(junctions, TargetID=NULL), aes(x=0, xend=1, y=start, yend=midpoint), size=.5)
+  p2 <- p2 + geom_segment(data=transform(junctions, TargetID=NULL), aes(x=1, xend=0, y=midpoint, yend=end), size=.5)
+  p2 <- p2 + geom_segment(data=junctions, aes(x=0, xend=1, y=start, yend=midpoint), size=1.5, color = "red")
+  p2 <- p2 + geom_segment(data=junctions, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
   p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.)
   
   gridExtra::grid.arrange(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
