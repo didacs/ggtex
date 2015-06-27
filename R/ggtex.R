@@ -168,7 +168,7 @@ boxplot_features <- function(
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
           strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
           strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
-    scale_fill_discrete(name=name)
+    scale_fill_discrete(name='Tissues')
   
 #  j <- read.table(junctions, header=T)
   j <- within(j, {
