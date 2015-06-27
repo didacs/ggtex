@@ -170,14 +170,12 @@ boxplot_features <- function(
           strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
     scale_fill_discrete(name='Tissues')
   
-#  j <- read.table(junctions, header=T)
   junctions <- within(junctions, {
     chr <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",1))
     start <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",2))
     end <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",3))
     midpoint <- start + (end - start) / 2
   })
- # e <- read.table(exons, header=F, col.names = c('ID','chr','start','end','strand'))
   
   p2 <- ggplot()
   p2 <- p2 + geom_linerange(data=exons[-1,], aes(x=0, ymin=start, ymax=end), size=10, color = "grey50")
@@ -187,7 +185,7 @@ boxplot_features <- function(
   p2 <- p2 + geom_segment(data=junctions, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
   p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.)
   
-  gridExtra::grid.arrange(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
+  gridExtra::arrangeGrob(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
   
   
 }
