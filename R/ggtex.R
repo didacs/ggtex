@@ -187,7 +187,7 @@ boxplot_features <- function(
   p2 <- p2 + geom_segment(data=j, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
   p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.)
   
-  grid.arrange(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
+  gridExtra::grid.arrange(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
   
   
 }
