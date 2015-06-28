@@ -144,6 +144,10 @@ ggtex_boxplot_tissues <- function(
 #' @param metadata object returned by load_metadata()
 #' @param exons exons
 #' @param junctions junctions
+#' @param top top
+#' @param right right
+#' @param bottom bottom
+#' @param left left
 #' @export
 #' @seealso \code{\link{load_metadata}}
 
@@ -152,7 +156,12 @@ boxplot_features <- function(
   values,
   metadata,
   exons,
-  junctions){
+  junctions,
+  top=30,
+  right=0,
+  bottom=50,
+  left=0
+  ){
   
   # transform values
   # replace "." by "-" in colnames
@@ -183,7 +192,7 @@ boxplot_features <- function(
   p2 <- p2 + geom_segment(data=transform(junctions, TargetID=NULL), aes(x=1, xend=0, y=midpoint, yend=end), size=.5)
   p2 <- p2 + geom_segment(data=junctions, aes(x=0, xend=1, y=start, yend=midpoint), size=1.5, color = "red")
   p2 <- p2 + geom_segment(data=junctions, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
-  p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.) + theme(plot.margin=unit(c(30,0,50,0),"mm"))
+  p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.) + theme(plot.margin=unit(c(top,right,bottom,left),"mm"))
 
   
   gridExtra::arrangeGrob(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
