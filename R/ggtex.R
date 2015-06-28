@@ -158,9 +158,9 @@ boxplot_features <- function(
   exons,
   junctions,
   feature.width = .2,
-  top=30,
+  top=32,
   right=10,
-  bottom=50,
+  bottom=65,
   left=0
   ){
   
