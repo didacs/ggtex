@@ -157,6 +157,7 @@ boxplot_features <- function(
   metadata,
   exons,
   junctions,
+  feature.width = .2,
   top=30,
   right=10,
   bottom=50,
@@ -202,7 +203,7 @@ boxplot_features <- function(
           panel.grid.minor=element_blank(),plot.background=element_blank())
 
   
-  gridExtra::arrangeGrob(p1, p2, ncol=2, widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
+  gridExtra::arrangeGrob(p1, p2, ncol=2, widths=unit.c(unit(1-feature.width, "npc"), unit(feature.width, "npc")))
   
   
 }

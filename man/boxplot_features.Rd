@@ -3,7 +3,8 @@
 \alias{boxplot_features}
 \title{Generates a boxplot with the distribution of the values across the GTEx tissues, including description of features}
 \usage{
-boxplot_features(values, metadata, exons, junctions)
+boxplot_features(values, metadata, exons, junctions, feature.width = 0.2,
+  top = 30, right = 10, bottom = 50, left = 0)
 }
 \arguments{
 \item{values}{data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.}
@@ -13,6 +14,14 @@ boxplot_features(values, metadata, exons, junctions)
 \item{exons}{exons}
 
 \item{junctions}{junctions}
+
+\item{top}{top}
+
+\item{right}{right}
+
+\item{bottom}{bottom}
+
+\item{left}{left}
 }
 \description{
 Generates a boxplot with the distribution of the values across the GTEx tissues, including description of features
