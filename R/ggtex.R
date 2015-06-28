@@ -161,14 +161,14 @@ boxplot_features <- function(
   df <- melt(t(values))
   names(df) <- c('SAMPID','feature','value')
   df <- merge(df, metadata, by='SAMPID')
-  
+  df$feature <- factor(df$feature, sort(levels(df$feature)))
   p1 <- ggplot(df, aes_string('SMTSD', 'value', fill='SMTS'))
   p1 <- p1 + geom_boxplot( outlier.size = 1) +
     facet_grid(feature~SMTS, space="free_x", scales="free") +
     theme(axis.text.x = element_text(angle=-45, hjust=0, vjust=1, size=12),
           strip.text.x = element_text(angle = 90, size = 10, hjust = 0, vjust = 0.5),
-          strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5)) +
-    scale_fill_discrete(name='Tissues')
+          strip.text.y = element_text(angle = 0, size = 10, hjust = 0, vjust = 0.5),
+          legend.position="none") 
   
   junctions <- within(junctions, {
     chr <- as.numeric(lapply(strsplit(as.character(junctions$TargetID), split = '_'),"[",1))
