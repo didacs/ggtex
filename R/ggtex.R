@@ -192,7 +192,14 @@ boxplot_features <- function(
   p2 <- p2 + geom_segment(data=transform(junctions, TargetID=NULL), aes(x=1, xend=0, y=midpoint, yend=end), size=.5)
   p2 <- p2 + geom_segment(data=junctions, aes(x=0, xend=1, y=start, yend=midpoint), size=1.5, color = "red")
   p2 <- p2 + geom_segment(data=junctions, aes(x=1, xend=0, y=midpoint, yend=end), size=1.5, color = "red")
-  p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.) + theme(plot.margin=unit(c(top,right,bottom,left),"mm"))
+  p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.) + 
+    theme(plot.margin=unit(c(top,right,bottom,left),"mm"),
+          axis.line=element_blank(),axis.text.x=element_blank(),
+          axis.text.y=element_blank(),axis.ticks=element_blank(),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),legend.position="none",
+          panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),plot.background=element_blank())
 
   
   gridExtra::arrangeGrob(p1, p2, ncol=2, widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
