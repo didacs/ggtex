@@ -158,7 +158,7 @@ boxplot_features <- function(
   exons,
   junctions,
   top=30,
-  right=0,
+  right=10,
   bottom=50,
   left=0
   ){
@@ -195,7 +195,7 @@ boxplot_features <- function(
   p2 <- p2 + coord_flip() + xlim(-2,3) + facet_grid(TargetID~.) + theme(plot.margin=unit(c(top,right,bottom,left),"mm"))
 
   
-  gridExtra::arrangeGrob(p1, p2, ncol=2, main = "Main title", widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
+  gridExtra::arrangeGrob(p1, p2, ncol=2, widths=unit.c(unit(0.65, "npc"), unit(0.35, "npc")))
   
   
 }
