@@ -7,9 +7,9 @@
 #' @export
 
 load_metadata <- function(
-  SubjectPhenotypes,
-  SubjectSampleMapping,
-  SampleAttributes
+  SubjectPhenotypes = '/users/rg/projects/GTEx/GTEx_Analysis_2014-06-13/sample_annotations/GTEx_Data_2014-06-13_Annotations_SubjectPhenotypesDS.txt'
+  SubjectSampleMapping = '/users/rg/projects/GTEx/GTEx_Analysis_2014-06-13/sample_annotations/GTEx_Data_2014-06-13_Annotations_SubjectSampleMappingDS.txt'
+  SampleAttributes = '/users/rg/projects/GTEx/GTEx_Analysis_2014-06-13/sample_annotations/GTEx_Data_2014-06-13_Annotations_SampleAttributesDS.txt'
   ) {
   SubjectPhenotypes <- read.delim(SubjectPhenotypes, fill=F)
   SubjectSampleMapping <- read.delim(SubjectSampleMapping, fill=F)
@@ -19,7 +19,7 @@ load_metadata <- function(
   metadata
 }
 
-#' Generates a boxplot with the distribution of the values across the GTEx tissues
+#' Generate a boxplot for expression values across the GTEx tissues
 #' 
 #' @param values data.frame with the values. rownames need to be the feature identifier (gene_id, exon_id,...) and colnames the sample ids.
 #' @param metadata object returned by load_metadata()
@@ -65,7 +65,7 @@ ggtex_boxplot_tissues <- function(
     # gene.rpkm as input
     if (class(gene.rpkm)=="data.frame"){
       if (class(gene_ids)=="logical"){ # gene.rpkm requires a list of gene ids (ENSG) in order to get a subset of genes
-        stop("gene_ids was not specified. Since you provided the gene.rpkm, a list of genes must be specified with the parameter gene_ids.")
+        stop("gene_ids was not specified. Since you provided the gene.rpkm, a list of genes must be specified with the parameter gene_ids (e.g. gene_ids = 'ENSG00000223972.4'  ).")
       }
       # ENSG without the suffix (e.g. ENSG00000223972.4 become ENSG00000223972)
       names_short <- as.character(lapply(strsplit(as.character(gene.rpkm$Name), split="\\."), "[",1))
@@ -74,7 +74,9 @@ ggtex_boxplot_tissues <- function(
       # generate the subset of the genes
       genes <- names_short %in% gene_ids_short
       # check if genes is not empty  
-      if (length(genes)==0) stop("None of the gene_ids was found in gene.rpkm$Name. Please, check if they have any genes in common")
+      if (length(genes)==0) {
+        stop("None of the gene_ids provided was found in gene.rpkm$Name. Please, make sure your gene(s) is present in gene.rpkm$Name")
+      }
       # get their values excluding the first two columns (Name and Description)
       values <- gene.rpkm[genes,-c(1,2)]
       # and include the Description as rownames. It will be displayed in the plot
